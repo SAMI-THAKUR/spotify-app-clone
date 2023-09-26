@@ -60,8 +60,12 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets\logos\icons8-spotify-32.png
+    - assets\albums\ved.png
     - assets\albums\divide.png
     - assets\albums\starboy.png
+    - assets\albums\kohinoor.png
+    - assets\albums\dev.png
+    - assets\albums\baarat.png
     - assets\albums\1d.png
     - assets\albums\id.png
     - assets\albums\mg.png
@@ -69,6 +73,8 @@ flutter:
     - assets\artists\ed-modified.png
     - assets\artists\hs-modified.png
     - assets\artists\ap-modified.png
+    - assets\artists\ritviz-modified.png
+    - assets\artists\divine-modified.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

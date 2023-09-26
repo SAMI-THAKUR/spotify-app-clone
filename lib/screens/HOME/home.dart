@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
             Row(
               children: [
                 Image.asset("assets/logos/icons8-spotify-32.png",
-                    width: 30, height: 30),
+                    width: 35, height: 35),
                 const SizedBox(
                   width: 10,
                 ),
@@ -52,37 +52,29 @@ class Home extends StatelessWidget {
           ],
         ),
         centerTitle: true,
-        backgroundColor: const Color(0xff1DB954),
+        backgroundColor: Colors.black87.withOpacity(0.6),
+        bottomOpacity: 0.0,
+        elevation: 0.0,
       ),
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
-            Colors.black87.withOpacity(0.8),
-            Colors.black87.withOpacity(0.8),
+            Colors.black87.withOpacity(0.6),
             Colors.black87.withOpacity(0.7),
+            Colors.black87.withOpacity(0.8),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         )),
         child: Container(
           margin: const EdgeInsets.only(left: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            shrinkWrap: false,
             children: [
-              Container(
-                padding: const EdgeInsets.only(top: 30),
-                child: Text(
-                  'Popular Albums',
-                  style: GoogleFonts.play(
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
+              const Heading(
+                heading: 'Recently Played',
               ),
               Container(
                 margin: const EdgeInsets.only(top: 20),
@@ -90,41 +82,21 @@ class Home extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   child: Row(children: [
-                    Album_Cover(
-                      album_cover: data.albums[0]["img"],
-                      name: data.albums[0]["name"],
-                      change: 0,
-                    ),
-                    Album_Cover(
-                      album_cover: data.albums[1]["img"],
-                      name: data.albums[1]["name"],
-                      change: 1,
-                    ),
-                    Album_Cover(
-                      album_cover: data.albums[2]["img"],
-                      name: data.albums[2]["name"],
-                      change: 2,
-                    ),
-                    Album_Cover(
-                      album_cover: data.albums[3]["img"],
-                      name: data.albums[3]["name"],
-                      change: 3,
-                    ),
+                    ...data.albums.entries.map((entry) {
+                      final key = entry.key;
+                      final value = entry.value;
+                      return Cover(
+                        album_cover: value["img"],
+                        name: value["name"],
+                        change: key,
+                        map: data.albums,
+                      );
+                    }).toList(),
                   ]),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: Text(
-                  'Artists',
-                  style: GoogleFonts.play(
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+              const Heading(
+                heading: 'Made for you',
               ),
               Container(
                 margin: const EdgeInsets.only(top: 20),
@@ -132,28 +104,21 @@ class Home extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   child: Row(children: [
-                    Artist_Cover(
-                      album_cover: data.arjit["img"],
-                      name: data.arjit["name"],
-                      change: 0,
-                    ),
-                    Artist_Cover(
-                      album_cover: data.ed_sheeran["img"],
-                      name: data.ed_sheeran["name"],
-                      change: 1,
-                    ),
-                    Artist_Cover(
-                      album_cover: data.harry_styles["img"],
-                      name: data.harry_styles["name"],
-                      change: 2,
-                    ),
-                    Artist_Cover(
-                      album_cover: data.ap_dhillon["img"],
-                      name: data.ap_dhillon["name"],
-                      change: 4,
-                    ),
+                    ...data.artists.entries.map((entry) {
+                      final key = entry.key;
+                      final value = entry.value;
+                      return Cover(
+                        album_cover: value["img"],
+                        name: value["name"],
+                        change: key,
+                        map: data.artists,
+                      );
+                    }).toList(),
                   ]),
                 ),
+              ),
+              const Heading(
+                heading: 'Trending Songs',
               ),
             ],
           ),
@@ -172,35 +137,60 @@ class Logo extends StatelessWidget {
       onPressed: () {},
       icon: Icon(
         logo,
-        color: Color(0xf3333333), //Color.fromRGBO(30, 215, 96, 1
+        color: const Color(0xffd5d5d5), //Color.fromRGBO(30, 215, 96, 1
         size: 28,
       ),
     );
   }
 }
 
-class Album_Cover extends StatelessWidget {
-  const Album_Cover(
+class Heading extends StatelessWidget {
+  const Heading({super.key, required this.heading});
+  final String heading;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 30),
+      child: Text(
+        heading,
+        style: GoogleFonts.montserrat(
+          textStyle: const TextStyle(
+            color: Colors.white,
+            fontSize: 19,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Cover extends StatelessWidget {
+  const Cover(
       {super.key,
       // ignore: non_constant_identifier_names
       required this.album_cover,
       required this.name,
-      required this.change});
+      required this.change,
+      required this.map});
   // ignore: non_constant_identifier_names
   final String album_cover;
   final String name;
-  final int change;
+  final String change;
+  final Map map;
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(right: 15),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
+          Navigator.of(
             context,
+          ).push(
             MaterialPageRoute(
               builder: (context) => AlbumPage(
                 index: change,
+                map: map,
               ),
             ),
           );
@@ -211,8 +201,8 @@ class Album_Cover extends StatelessWidget {
             children: [
               Image.asset(
                 album_cover,
-                width: 150,
-                height: 150,
+                width: 140,
+                height: 140,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10),
@@ -220,62 +210,7 @@ class Album_Cover extends StatelessWidget {
                   name,
                   style: GoogleFonts.poppins(
                     textStyle: const TextStyle(
-                      color: Color(0xffd5d5d5),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-              ),
-            ]),
-      ),
-    );
-  }
-}
-
-class Artist_Cover extends StatelessWidget {
-  const Artist_Cover(
-      {super.key,
-      required this.album_cover,
-      required this.name,
-      required this.change});
-  // required this.change
-  // final Function() change;
-  final String album_cover;
-  final String name;
-  final int change;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 20),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AlbumPage(
-                index: change,
-              ),
-            ),
-          );
-        },
-        child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Image.asset(
-                album_cover,
-                width: 130,
-                height: 130,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Text(
-                  name,
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      color: Color(0xffd5d5d5),
+                      color: Color(0xfff5f5f5),
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
                     ),

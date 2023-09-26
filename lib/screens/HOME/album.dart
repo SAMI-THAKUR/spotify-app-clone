@@ -1,30 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:spotify/screens/HOME/play.dart';
 import 'data.dart' as data;
 
-List albums = data.albums;
-
 class AlbumPage extends StatefulWidget {
-  const AlbumPage({Key? key, required this.index}) : super(key: key);
-  final int index;
+  const AlbumPage({Key? key, required this.index, required this.map})
+      : super(key: key);
+  final String index;
+  final Map map;
   @override
   State<AlbumPage> createState() {
     // ignore: no_logic_in_create_state
-    return _AlbumPage(index);
+    return _AlbumPage(index, map);
   }
 }
 
 class _AlbumPage extends State<AlbumPage> {
-  _AlbumPage(this.index);
-  final int index;
+  _AlbumPage(this.index, this.map);
+  final String index;
+  final Map map;
+  bool liked = false;
+  void like() {
+    setState(() {
+      liked = !liked;
+    });
+  }
+
   @override
   Widget build(context) {
+    Map albums = map;
     return Scaffold(
       appBar: CustomAppBar(
         albums[index]["name"],
         color: albums[index]["color"],
       ),
-      body: Page(artist: albums[index]),
+      body: Page(artist: albums[index], state: liked, like: like),
     );
   }
 }
@@ -44,9 +54,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              color,
-              color.withOpacity(0.6),
+              color.withOpacity(0.8),
+              color.withOpacity(0.8),
             ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
         ),
       ),
@@ -82,29 +94,42 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       automaticallyImplyLeading: false,
+      bottomOpacity: 0.0,
+      elevation: 0.0,
     );
   }
 }
 
 class Page extends StatelessWidget {
-  const Page({super.key, required this.artist});
+  const Page({
+    super.key,
+    required this.artist,
+    required this.state,
+    required this.like,
+  });
   final Map artist;
+  final bool state;
+  final void Function() like;
   @override
   Widget build(context) {
     return Container(
       padding: const EdgeInsets.only(top: 10),
       width: double.infinity,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           gradient: LinearGradient(
         colors: [
-          Color(0xff333257),
-          Color(0xff334257),
-          Color(0xff3C4048),
+          artist["color"].withOpacity(0.8),
+          artist["color"].withOpacity(0.7),
+          Colors.black87.withOpacity(0.6),
+          Colors.black87.withOpacity(0.7),
+          Colors.black87.withOpacity(0.8),
+          Colors.black87.withOpacity(0.8),
         ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       )),
-      child: Column(
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
         children: [
           Image.asset(
             artist["img"],
@@ -112,14 +137,15 @@ class Page extends StatelessWidget {
             height: 230,
           ),
           const SizedBox(
-            height: 5,
+            height: 20,
           ),
           Text(
-            'By ${artist["artist"]}',
-            style: GoogleFonts.adventPro(
+            artist["name"] ?? artist["artist"],
+            textAlign: TextAlign.center,
+            style: GoogleFonts.montserrat(
               textStyle: const TextStyle(
-                color: Color(0xff1DB954),
-                fontSize: 23,
+                color: Colors.white,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -132,9 +158,12 @@ class Page extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite_border,
+                      onPressed: like,
+                      icon: Icon(
+                        state ? Icons.favorite : Icons.favorite_border,
+                        color: state
+                            ? const Color.fromARGB(255, 12, 228, 19)
+                            : Colors.white,
                         size: 30,
                       ),
                       color: const Color(0xffd5d5d5),
@@ -176,8 +205,10 @@ class Page extends StatelessWidget {
             return Song(
               name: song["name"],
               duration: song["duration"],
+              index: artist["songs"].indexOf(song),
+              map: artist,
             );
-          }).toList()
+          }).toList(),
         ],
       ),
     );
@@ -185,14 +216,28 @@ class Page extends StatelessWidget {
 }
 
 class Song extends StatelessWidget {
-  Song({super.key, required this.name, required this.duration});
+  Song({
+    super.key,
+    required this.name,
+    required this.duration,
+    required this.index,
+    required this.map,
+  });
   final String name;
   final String duration;
+  final int index;
+  final Map map;
   @override
   Widget build(context) {
     return GestureDetector(
       onTap: () {
+        print(map);
+        print(index);
         print("Playing $name");
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => play(index: index, map: map)));
       },
       child: Container(
         padding: const EdgeInsets.only(top: 40, left: 20),
@@ -208,8 +253,9 @@ class Song extends StatelessWidget {
                       name,
                       style: GoogleFonts.ibmPlexSans(
                         textStyle: const TextStyle(
-                          color: Color(0xffd5d5d5),
+                          color: Color(0xfff5f5f5),
                           fontSize: 18,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),

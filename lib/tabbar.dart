@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'screens/HOME/home.dart';
 import 'screens/search.dart';
 
-Map<Widget, GlobalKey<NavigatorState>> navigatorKeys = {
-  const Home(): GlobalKey<NavigatorState>(),
-  const Search(): GlobalKey<NavigatorState>(),
-};
+List<GlobalKey<NavigatorState>> navigatorKeys = [
+  GlobalKey<NavigatorState>(),
+  GlobalKey<NavigatorState>(),
+];
 
-List views = [const Home(), const Search()];
+final List<Widget> views = [const Home(), const Search()];
 
 class Tabbar extends StatefulWidget {
   const Tabbar({super.key});
@@ -20,27 +20,30 @@ class _TabbarState extends State<Tabbar> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        final isFirstRouteInCurrentTab =
-            !await navigatorKeys[_selectedTab]!.currentState!.maybePop();
-        // let system handle back button if we're on the first route
-        return !isFirstRouteInCurrentTab;
-      },
-      child: Scaffold(
+        onWillPop: () async {
+          final isFirstRouteInCurrentTab =
+              !await navigatorKeys[_selectedTab].currentState!.maybePop();
+          // let system handle back button if we're on the first route
+          return !isFirstRouteInCurrentTab;
+        },
+        child: Scaffold(
           bottomNavigationBar: BottomNavigationBar(
             elevation: double.infinity,
             type: BottomNavigationBarType.fixed,
-            backgroundColor: const Color(0xff0d1117),
-            selectedItemColor: const Color(0xfff5f5f5),
+            backgroundColor: Colors.black87.withOpacity(0.9),
+            selectedItemColor: const Color(0xff1DB954),
             unselectedItemColor: const Color(0xff333333),
             currentIndex: _selectedTab,
             onTap: (index) {
-              setState(() {
-                if (index == 1) {
-                  Navigator.popUntil(context, (route) => route.isFirst);
-                }
-                _selectedTab = index;
-              });
+              if (index != _selectedTab) {
+                setState(() {
+                  _selectedTab = index;
+                });
+              } else {
+                // Pop to the first route in the current tab's navigator
+                final navigator = navigatorKeys[_selectedTab].currentState!;
+                navigator.popUntil((route) => route.isFirst);
+              }
             },
             iconSize: 30,
             items: const [
@@ -62,25 +65,16 @@ class _TabbarState extends State<Tabbar> {
               ),
             ],
           ),
-          body: Stack(
-            children: [
-              _buildOffstageNavigator(0),
-              _buildOffstageNavigator(1),
-            ],
-          )),
-    );
+          body: _buildOffstageNavigator(),
+        ));
   }
 
-  Widget _buildOffstageNavigator(int tabItem) {
-    return Offstage(
-      offstage: _selectedTab != tabItem,
-      child: Navigator(
-        key: navigatorKeys[tabItem],
-        initialRoute: "/", // this is the route name
-        onGenerateRoute: (routeSettings) {
-          return MaterialPageRoute(builder: (context) => views[tabItem]);
-        },
-      ),
+  Widget _buildOffstageNavigator() {
+    return Navigator(
+      key: navigatorKeys[_selectedTab],
+      onGenerateRoute: (routeSettings) {
+        return MaterialPageRoute(builder: (context) => views[_selectedTab]);
+      },
     );
   }
 }

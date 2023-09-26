@@ -1,4 +1,37 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
+
+// -------------------------------------  Albums  ------------------------------------- //
+
+Map ved = {
+  "name": "VED",
+  "img": "assets/albums/ved.png",
+  "artist": "RITVIZ",
+  "color": Colors.lightBlue[200],
+  "songs": [
+    {
+      "name": "UD GAYE",
+      "duration": "3:50",
+    },
+    {
+      "name": "VED",
+      "duration": "3:50",
+    },
+    {
+      "name": "SAGE",
+      "duration": "4:09",
+    },
+    {
+      "name": "VED",
+      "duration": "3:00",
+    },
+    {
+      "name": "CHINI",
+      "duration": "3:38",
+    },
+  ],
+};
 
 Map starboy = {
   "name": "Starboy",
@@ -92,9 +125,87 @@ Map four = {
   ]
 };
 
+Map kohinoor = {
+  "name": "Kohinoor",
+  "img": "assets/albums/kohinoor.png",
+  "artist": "DIVINE",
+  "color": Colors.grey,
+  "songs": [
+    {
+      "name": "Kohinoor",
+      "img": "assets/albums/kohinoor.png",
+      "duration": "3:50",
+    },
+    {
+      "name": "Wallah",
+      "img": "assets/albums/kohinoor.png",
+      "duration": "3:50",
+    },
+    {
+      "name": "Too Hype",
+      "img": "assets/albums/kohinoor.png",
+      "duration": "4:09",
+    },
+    {
+      "name": "Remand",
+      "img": "assets/albums/kohinoor.png",
+      "duration": "3:00",
+    },
+    {
+      "name": "Gandhi Money",
+      "img": "assets/albums/kohinoor.png",
+      "duration": "3:38",
+    },
+  ],
+};
+
+Map albums = {
+  "ved": ved,
+  "kohinoor": kohinoor,
+  "starboy": starboy,
+  "imagine": imagine,
+  "divide": divide,
+  "four": four,
+};
+
+// -------------------------------------  Artists  ------------------------------------- //
+
+Map ritviz = {
+  "name": "Ritviz",
+  "img": "assets/artists/ritviz-modified.png",
+  "color": Colors.deepPurple,
+  "songs": [
+    {
+      "name": "Sage",
+      "img": "assets/albums/ved.png",
+      "color": Colors.lightBlue[200],
+      "duration": "4:09",
+    },
+    {
+      "name": "Ud Gaye",
+      "img": "assets/albums/ved.png",
+      "color": Colors.lightBlue[200],
+      "duration": "3.00",
+    },
+    {
+      "name": "Baarat",
+      "img": "assets/albums/baarat.png",
+      "color": Colors.lightBlue[200],
+      "duration": "3:42",
+    },
+    {
+      "name": "Liggi",
+      "img": "assets/albums/dev.png",
+      "color": Colors.lightBlue[200],
+      "duration": "4:09",
+    }
+  ]
+};
+
 Map arjit = {
   "name": "Arijit Singh",
   "img": "assets/artists/arjit-modified.png",
+  "color": Colors.deepPurple,
   "songs": [
     {
       "name": "Tum Hi Ho",
@@ -117,6 +228,7 @@ Map arjit = {
 Map harry_styles = {
   "name": "Harry Styles",
   "img": "assets/artists/hs-modified.png",
+  "color": Colors.deepPurple[600],
   "songs": [
     {
       "name": "Sign Of The Times",
@@ -125,12 +237,12 @@ Map harry_styles = {
     },
     {
       "name": "Two Ghosts",
-      "img": "assets/images/album/hs.jpg",
+      "img": "assets/artists/hs-modified.png",
       "duration": "3:49",
     },
     {
       "name": "Kiwi",
-      "img": "assets/images/album/hs.jpg",
+      "img": "assets/artists/hs-modified.png",
       "duration": "2:56",
     }
   ]
@@ -139,6 +251,7 @@ Map harry_styles = {
 Map ed_sheeran = {
   "name": "Ed Sheeran",
   "img": "assets/artists/ed-modified.png",
+  "color": Colors.deepPurple[600],
   "songs": [
     {
       "name": "Shape Of You",
@@ -156,6 +269,7 @@ Map ed_sheeran = {
 Map ap_dhillon = {
   "name": "AP Dhillon",
   "img": "assets/artists/ap-modified.png",
+  "color": Colors.deepPurple[600],
   "songs": [
     {
       "name": "Brown Munde",
@@ -175,5 +289,44 @@ Map ap_dhillon = {
   ]
 };
 
-List albums = [starboy, imagine, divide, four];
-List artists = [harry_styles, ed_sheeran, ap_dhillon];
+Map divine = {
+  "name": "DIVINE",
+  "img": "assets/artists/divine-modified.png",
+  "color": Colors.deepPurple[600],
+  "songs": [
+    {
+      "name": "Kohinoor",
+      "img": "assets/images/album/kohinoor.jpg",
+      "duration": "3:50",
+    },
+    {
+      "name": "Wallah",
+      "img": "assets/images/album/kohinoor.jpg",
+      "duration": "3:50",
+    },
+    {
+      "name": "Too Hype",
+      "img": "assets/images/album/kohinoor.jpg",
+      "duration": "4:09",
+    },
+    {
+      "name": "Remand",
+      "img": "assets/images/album/kohinoor.jpg",
+      "duration": "3:00",
+    },
+    {
+      "name": "Gandhi Money",
+      "img": "assets/images/album/kohinoor.jpg",
+      "duration": "3:38",
+    },
+  ],
+};
+
+Map artists = {
+  "ritviz": ritviz,
+  "ap_dhillon": ap_dhillon,
+  "harry_styles": harry_styles,
+  "arjit": arjit,
+  "divine": divine,
+  "ed_sheeran": ed_sheeran,
+};
