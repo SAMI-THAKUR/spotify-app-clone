@@ -1,16 +1,46 @@
-# spotify
+# Spotify Clone App - Flutter Frontend
 
-A new Flutter project.
+![Spotify Clone App](demo.gif)
 
-## Getting Started
+## Overview
 
-This project is a starting point for a Flutter application.
+Welcome to the Spotify Clone App,
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Home Screen**: Browse and discover new music with recommendations tailored just for you.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Demo
+
+![Demo](demo.gif)
+
+Check out our demo [here](https://github.com/yourusername/spotify-clone-flutter).
+
+## Installation
+
+Follow these steps to get the Spotify Clone App up and running on your local machine:
+
+1. **Clone this repository**:
+
+   ```shell
+   git clone https://github.com/SAMI-THAKUR/spotify-app-clone
+   ```
+
+2. **Navigate**:
+
+   ```shell
+   cd spotify-clone-flutter
+   ```
+
+3. **_Install the required dependencies_**:
+
+```shell
+    flutter pub get
+
+```
+
+4. **_Run the app_**:
+
+```shell
+flutter run
+```

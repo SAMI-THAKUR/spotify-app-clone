@@ -234,10 +234,9 @@ class Song extends StatelessWidget {
         print(map);
         print(index);
         print("Playing $name");
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => play(index: index, map: map)));
+        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+            fullscreenDialog: false,
+            builder: (context) => play(index: index, map: map)));
       },
       child: Container(
         padding: const EdgeInsets.only(top: 40, left: 20),

@@ -28,7 +28,8 @@ class _play extends State<play> {
       Navigator.pop(context);
     }
 
-    return Container(
+    return Scaffold(
+        body: Container(
       height: double.maxFinite,
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
@@ -77,7 +78,7 @@ class _play extends State<play> {
               ],
             ),
             const SizedBox(
-              height: 50,
+              height: 70,
             ),
             Image.asset(
               map["songs"][index]["img"] ?? map["img"],
@@ -85,7 +86,7 @@ class _play extends State<play> {
               height: 350,
             ),
             const SizedBox(
-              height: 30,
+              height: 50,
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -117,14 +118,14 @@ class _play extends State<play> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
               child: Divider(
                 color: const Color(0xff333333).withOpacity(0.8),
                 thickness: 2,
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             const Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
@@ -173,10 +174,41 @@ class _play extends State<play> {
             const SizedBox(
               height: 30,
             ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10), color: map["color"]),
+              alignment: Alignment.topLeft,
+              margin: const EdgeInsets.only(left: 15, right: 15),
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'LYRICS',
+                        style: GoogleFonts.ibmPlexSans(
+                            textStyle: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold)),
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey),
+                        margin: const EdgeInsets.only(top: 20),
+                        padding: const EdgeInsets.all(15.0),
+                        child: const Column(children: [
+                          Text("Enjoy Lyrics on Spotify Premium")
+                        ]),
+                      )
+                    ]),
+              ),
+            )
           ],
         ),
       ),
-    );
+    ));
   }
 }
 
@@ -184,6 +216,7 @@ class Logo extends StatelessWidget {
   const Logo({super.key, required this.icon, required this.func});
   final IconData icon;
   final Function() func;
+  @override
   Widget build(context) {
     return IconButton(
       onPressed: func,
