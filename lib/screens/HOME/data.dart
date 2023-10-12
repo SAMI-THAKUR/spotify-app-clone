@@ -209,17 +209,17 @@ Map arjit = {
   "songs": [
     {
       "name": "Tum Hi Ho",
-      "img": "assets/images/album/arijit.jpg",
+      "img": "assets/songs/tum_hi_ho.png",
       "duration": "4:22",
     },
     {
       "name": "Channa Mereya",
-      "img": "assets/images/album/arijit.jpg",
+      "img": "assets/songs/cm.png",
       "duration": "4:49",
     },
     {
       "name": "Agar Tum Saath Ho",
-      "img": "assets/images/album/arijit.jpg",
+      "img": "assets/songs/agar.png",
       "duration": "5:42",
     }
   ]
@@ -231,18 +231,18 @@ Map harry_styles = {
   "color": Colors.deepPurple[600],
   "songs": [
     {
-      "name": "Sign Of The Times",
-      "img": "assets/artists/hs-modified.png",
+      "name": "WaterMelon Sugar",
+      "img": "assets/songs/watermelon.jpg",
       "duration": "5:41",
     },
     {
       "name": "Two Ghosts",
-      "img": "assets/artists/hs-modified.png",
+      "img": "assets/songs/two.webp",
       "duration": "3:49",
     },
     {
       "name": "Kiwi",
-      "img": "assets/artists/hs-modified.png",
+      "img": "assets/songs/house.jpg",
       "duration": "2:56",
     }
   ]
@@ -284,6 +284,11 @@ Map ap_dhillon = {
     {
       "name": "Facts",
       "img": "assets/images/album/facts.jpg",
+      "duration": "3:16",
+    },
+    {
+      "name": "True Stories",
+      "img": "assets/images/album/shinda-kahlon.jpg",
       "duration": "3:16",
     }
   ]
@@ -329,4 +334,49 @@ Map artists = {
   "arjit": arjit,
   "divine": divine,
   "ed_sheeran": ed_sheeran,
+};
+
+// -------------------------------------  Songs  ------------------------------------- //
+
+Map favourit = {
+  "name": "Favourit",
+  "img": "assets/songs/favourit.png",
+  "color": Colors.lightBlue[200],
+  "songs": [
+    {
+      "name": "Ud Gaye 3",
+      "img": "assets/albums/ved.png",
+      "artist": "Ritviz",
+      "color": Colors.lightBlue[200],
+      "duration": "3:50",
+    },
+    {
+      "name": "Baarat",
+      "img": "assets/albums/ved.png",
+      "artist": "Ritviz",
+      "color": Colors.lightBlue[200],
+      "duration": "3:42",
+    },
+    {
+      "name": "Liggi",
+      "img": "assets/albums/ved.png",
+      "artist": "Ritviz",
+      "color": Colors.lightBlue[200],
+      "duration": "4:09",
+    },
+    {
+      "name": "Sage",
+      "img": "assets/albums/ved.png",
+      "artist": "Ritviz",
+      "color": Colors.lightBlue[200],
+      "duration": "3:00",
+    },
+    {
+      "name": "Chalo Chalein",
+      "img": "assets/albums/ved.png",
+      "artist": "Ritviz",
+      "color": Colors.lightBlue[200],
+      "duration": "3:38",
+    },
+  ]
 };

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'screens/HOME/home.dart';
 import 'screens/search.dart';
+import 'screens/profile.dart';
 
 List<GlobalKey<NavigatorState>> navigatorKeys = [
   GlobalKey<NavigatorState>(),
   GlobalKey<NavigatorState>(),
+  GlobalKey<NavigatorState>(),
 ];
 
-final List<Widget> views = [const Home(), const Search()];
+final List<Widget> views = [const Home(), const Search(), profile()];
 
 class Tabbar extends StatefulWidget {
   const Tabbar({super.key});

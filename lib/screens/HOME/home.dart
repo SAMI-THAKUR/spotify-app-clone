@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:spotify/screens/HOME/album.dart';
+import 'package:spotify/screens/HOME/play.dart';
 import 'data.dart' as data;
 
 class Home extends StatelessWidget {
@@ -71,6 +72,7 @@ class Home extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.only(left: 20),
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             shrinkWrap: false,
             children: [
               const Heading(
@@ -120,6 +122,35 @@ class Home extends StatelessWidget {
               const Heading(
                 heading: 'Trending Songs',
               ),
+              const SizedBox(
+                height: 5,
+              ),
+              SafeArea(
+                child: SizedBox(
+                    width: double.infinity,
+                    height: 300,
+                    child: GridView(
+                        scrollDirection: Axis.horizontal,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1 / 2,
+                          crossAxisSpacing: 10,
+                        ),
+                        children: [
+                          ...data.favourit["songs"].map((entry) {
+                            final value = entry;
+                            return list(
+                              img: value["img"],
+                              name: value["name"],
+                              duration: value["duration"],
+                              index: data.favourit["songs"].indexOf(value),
+                              map: data.favourit,
+                            );
+                          }).toList(),
+                        ])),
+              ),
+              const Heading(heading: "Podcasts"),
             ],
           ),
         ),
@@ -219,6 +250,94 @@ class Cover extends StatelessWidget {
                 ),
               ),
             ]),
+      ),
+    );
+  }
+}
+
+class list extends StatelessWidget {
+  list(
+      {super.key,
+      required this.img,
+      required this.name,
+      required this.duration,
+      required this.index,
+      required this.map});
+  final String img;
+  final String name;
+  final String duration;
+  final int index;
+  final Map map;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+            fullscreenDialog: false,
+            builder: (context) => play(index: index, map: map)));
+      },
+      child: Row(
+        children: [
+          Image.asset(
+            img,
+            width: 80,
+            height: 80,
+          ),
+          Container(
+            margin: const EdgeInsets.only(right: 10),
+            width: 200,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  width: 20,
+                ),
+                Container(
+                  width: 110,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        name,
+                        style: GoogleFonts.ibmPlexSans(
+                          textStyle: const TextStyle(
+                            color: Color(0xfff5f5f5),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        duration,
+                        style: GoogleFonts.ibmPlexSans(
+                          textStyle: const TextStyle(
+                            color: Color(0xffd5d5d5),
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 10, right: 10),
+                  child: Icon(
+                    Icons.add,
+                    color: Color(0xffd5d5d5),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Icon(
+                    Icons.more_horiz_rounded,
+                    color: Color(0xffd5d5d5),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
