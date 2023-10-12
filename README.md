@@ -10,11 +10,12 @@ Welcome to the Spotify Clone App,
 
 - **Home Screen**: Browse and discover new music with recommendations tailored just for you.
 
-## Demo
 
-![Demo](demo.gif)
 
-Check out our demo [here](https://github.com/yourusername/spotify-clone-flutter).
+## Preview
+
+
+https://github.com/SAMI-THAKUR/spotify-app-clone/assets/118300788/d884ccb1-6812-45e9-b9fa-1fe760706174
 
 ## Installation
 
@@ -34,13 +35,13 @@ Follow these steps to get the Spotify Clone App up and running on your local mac
 
 3. **_Install the required dependencies_**:
 
-```shell
+   ```shell
     flutter pub get
 
-```
+   ```
 
 4. **_Run the app_**:
 
-```shell
-flutter run
-```
+   ```shell
+   flutter run
+   ```
